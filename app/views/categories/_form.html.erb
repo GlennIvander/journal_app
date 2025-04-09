@@ -1,0 +1,25 @@
+<%= form_with model: category do |form| %>
+  <div class="field form-group">
+    <%= form.label :title %><br>
+    <%= form.text_field :title, class:"form-control" %>
+    <% category.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :body %><br>
+    <%= form.text_area :body, class:"form-control" %><br>
+    <% category.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class:'btn btn-secondary' %>
+  </div>
+
+<% end %>
+
+
+

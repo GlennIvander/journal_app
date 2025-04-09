@@ -1,0 +1,15 @@
+
+  <p>
+    <strong>task:</strong>
+    <%= task.task %>
+  </p>
+
+  <p>
+    <strong>task:</strong>
+    <%= task.body %>
+  </p>
+
+  <p>
+    <%= link_to "Destroy task", [task.category, task], data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  </p>
+<% end %>

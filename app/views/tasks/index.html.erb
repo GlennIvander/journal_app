@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <h2><%= "All tasks" %></h2>
+  </div>
+  <div class="card-body">
+    <% @tasks.each do |task| %>
+    <blockquote class="blockquote mb-0">
+      <p> <%= task.body  %> </p>
+      <p><footer class="blockquote-footer"> <%= task.task  %> </footer></p>
+      <div>
+        <%= link_to "Show", category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
+        <%= link_to "Update", edit_category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
+        <%= link_to "Delete", category_task_path(@category, task), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-danger btn-sm" %>
+      </div>
+      <br><br>
+      <% end %>
+    </blockquote>
+  </div>
+</div>
+<br><br>
+<%= link_to "Back", @category, class: "btn btn-secondary" %>

@@ -1,0 +1,23 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1> <%= @category.title %> </h1>
+    <p class="lead"> <%= @category.body %> </p>
+  </div>
+  <div class="text-right mr-4">
+  <%= link_to "Edit", edit_category_path(@category), class:"btn btn-info btn-sm" %>
+  <%= link_to "Destroy", category_path(@category), data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}, class:"btn btn-danger btn-sm" %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h4>Tasks: <%= link_to @category.tasks.count, category_tasks_path(@category) %></h4>
+  </div>
+</div>
+
+<br>
+
+<h2>Add a task:</h2>
+<%= render "tasks/form", category: @category, task: @task %>
+<br>
+<%= link_to "Back", root_path , class: "btn btn-secondary" %>

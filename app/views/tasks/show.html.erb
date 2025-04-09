@@ -1,0 +1,12 @@
+<h1>Show task</h1>
+<br>
+<div class="jumbotron">
+  <h1 class="display-4">
+    <%= @task.task %>
+  </h1>
+  <p class="lead">
+    <%= @task.body %>
+  </p>
+</div>
+
+<%= link_to "Back", category_tasks_path(@category), class: "btn btn-secondary" %>
