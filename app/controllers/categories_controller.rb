@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_id, only: %i[show edit update destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
 
   def index
     @categories = Category.all
@@ -44,5 +46,13 @@ class CategoriesController < ApplicationController
 
   def set_id
     @category = Category.find(params[:id])
+  end
+
+  def record_not_found
+    redirect_to categories_path, alert: "Record does not exist"
+  end
+
+  def invalid_foreign_key
+    redirect_to categories_path, alert: "Unable to delete category. Still referenced from tasks"
   end
 end
