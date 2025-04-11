@@ -12,9 +12,9 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to category_tasks_path(@category), notice: "Yeey. Update successful."
+      redirect_to category_tasks_path(@category), notice: "Updated successfully."
     else
-      flash[:alert] = "Sad. Update unsuccessful."
+      flash[:alert] = "Oh no! Updated unsuccessfully."
       render :edit, status: :unprocessable_entity
     end
   end
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   def destroy
     if @task.destroy
       redirect_to category_path(@category), status: :see_other
-      flash[:alert] = "Yeey. Delete successful."
+      flash[:alert] = "Deleted successfully."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -31,16 +31,16 @@ class TasksController < ApplicationController
   def create
     @task = @category.tasks.new(task_params)
     if @task.save
-      redirect_to category_path(@category), notice: "Yeey. Create successful.", status: :see_other
+      redirect_to category_path(@category), notice: "Task created successfully.", status: :see_other
     else
-      flash[:alert] = "Sad. Create unsuccessful."
+      flash[:alert] = "Oh no! Task created unsuccessful."
       redirect_to category_path(@category)
     end
   end
 
   private
   def task_params
-    params.require(:task).permit(:task, :body)
+    params.require(:task).permit(:task, :body, :due_date)
   end
 
   def set_id

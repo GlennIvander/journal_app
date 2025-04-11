@@ -9,13 +9,16 @@
   </thead>
   <tbody>
     <% @categories.each do |category| %>
-    <tr>
-      <td><%= category.title %></td>
-      <td class="text-center"><%= link_to "show", category, class:"btn btn-info btn-sm" %></td>
-    </tr>
+      <% if category.user == current_user %>
+      <h2> Hi, current user ID: <%= current_user.id %> </h2>
+        <br> <br>
+        <tr>
+          <td><%= category.title %></td>
+          <td class="text-center"><%= link_to "show", category, class:"btn btn-info btn-sm" %></td>
+        </tr>
+      <% end %>
     <% end %>
-  </tbody>
-  
+  </tbody>  
 </table>
 <br>
 <%= link_to "New Category", new_category_path, class: "btn btn-primary" %>

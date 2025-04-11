@@ -13,6 +13,10 @@
       <div class="text-danger"><%= message %></div>
     <% end %>
   </div>
+  <div class="field form-group">
+    <%= form.label :Date %><br>
+    <%= form.date_select :due_date %>
+  </div>
   <div class="actions">
     <%= form.submit class:'btn btn-primary'%>
   </div>

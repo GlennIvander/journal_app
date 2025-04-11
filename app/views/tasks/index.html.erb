@@ -6,7 +6,7 @@
     <% @tasks.each do |task| %>
     <blockquote class="blockquote mb-0">
       <p> <%= task.body  %> </p>
-      <p><footer class="blockquote-footer"> <%= task.task  %> </footer></p>
+      <p><footer class="blockquote-footer"> <%= task.task %> <%= task.due_date %> </footer></p>
       <div>
         <%= link_to "Show", category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
         <%= link_to "Update", edit_category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
