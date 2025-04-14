@@ -1,21 +1,21 @@
 require "test_helper"
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
-include Devise::Test::IntegrationHelpers
-
-  test "should get index" do
-    get "/categories"
-    assert_response :success
-  end
+  include Devise::Test::IntegrationHelpers
 
   setup do
     @user = users(:one)
     sign_in @user
+
+    @category = Category.create!(
+      title: "Sample category title",
+      body: "Sample category body",
+      user: @user
+    )
   end
 
-  test "should show" do
-    category = Category.create!(title: "Test Title", body: "Test body", user: @user)
-    get category_path(category)
+  test "should get index" do
+    get categories_path
     assert_response :success
   end
 
@@ -24,20 +24,35 @@ include Devise::Test::IntegrationHelpers
     assert_response :success
   end
 
-  test "should get edit for own category" do
-    category = Category.create!(title: "User's Category", body: "Sample Body", user: @user)
-    get edit_category_path(category)
+  test "should show" do
+    get category_path(@category)
     assert_response :success
   end
 
-  test "should get create" do
-    post categories_path, params: { category: { title: "Test Title", body: "Test body", user_id: 1 } }
+  test "should get edit for a category" do
+    get edit_category_path(@category)
+    assert_response :success
+  end
+
+  test "should create a category" do
+    post categories_path, params: {
+      category: {
+        title: "New Title",
+        body: "New Body",
+        user_id: @user.id
+      }
+    }
     assert_response :redirect
   end
 
-  test "should update" do
-    category = Category.create!(title: "Old Title", body: "Old body", user: @user)
-    patch category_path(category), params: { category: { title: "Test Title", body: "Test body", user_id: @user.id } }
+  test "should update a category" do
+    patch category_path(@category), params: {
+      category: {
+        title: "Updated Title",
+        body: "Updated Body",
+        user_id: @user.id
+      }
+    }
     assert_response :redirect
   end
 end
