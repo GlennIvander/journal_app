@@ -29,12 +29,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @category.tasks.new(task_params) 
+    @task = @category.tasks.new(task_params)
     if @task.save
       redirect_to category_path(@category), notice: "Task created successfully.", status: :see_other
     else
       flash[:alert] = "Oh no! Task created unsuccessfully."
-      redirect_to category_path(@category)
+      render "categories/show", status: :unprocessable_entity
     end
   end
 

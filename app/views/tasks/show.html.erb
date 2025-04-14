@@ -4,9 +4,12 @@
   <h1 class="display-4">
     <%= @task.task %>
   </h1>
-  <p class="lead">
-    <%= @task.body %>
-  </p>
+  <% if @task.body.present? %>
+  <ul class="lead">
+    <% @task.body.split("\n").each do |line| %>
+      <li><%= line.strip %></li>
+    <% end %>
+  </ul>
+  <% end %>
 </div>
-
 <%= link_to "Back", category_tasks_path(@category), class: "btn btn-secondary" %>

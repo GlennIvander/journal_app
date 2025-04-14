@@ -5,8 +5,14 @@
   <div class="card-body">
     <% @tasks.each do |task| %>
     <blockquote class="blockquote mb-0">
-      <p> <%= task.body  %> </p>
-      <p><footer class="blockquote-footer"> <%= task.task %> <%= task.due_date %> </footer></p>
+      <p> <%= task.task %>: due on <%= task.due_date %> </p>
+      <% if task.body.present? %>
+          <ul class="mb-2 h6">
+            <% task.body.split("\n").each do |line| %>
+              <li><%= line.strip %></li>
+            <% end %>
+          </ul>
+        <% end %>
       <div>
         <%= link_to "Show", category_task_path(@category, task), class:"btn btn-primary btn-sm" %>
         <%= link_to "Update", edit_category_task_path(@category, task), class:"btn btn-primary btn-sm" %>

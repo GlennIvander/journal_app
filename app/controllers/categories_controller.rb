@@ -47,7 +47,7 @@ class CategoriesController < ApplicationController
   end
 
   def correct_user
-    @category = current_user.category.find_by(id: params[:id])
+    @category = current_user.categories.find_by(id: params[:id])
     redirect_to root_path, notice: "Not authorized to edit this category" if @category.nil?
   end
 
