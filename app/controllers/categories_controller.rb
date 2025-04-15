@@ -3,10 +3,10 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!, except: [ :index, :show ]
   before_action :correct_user, only: [ :edit, :update ]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
 
   def index
     @categories = Category.all
+    @cats = current_user.categories
   end
 
   def show
@@ -24,6 +24,7 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to @category, notice: "Category: #{@category.title} saved successfully"
     else
+      flash[:alert] = "Oh no! Created unsuccessfully."
       render :new, status: :unprocessable_entity
     end
   end
@@ -42,6 +43,7 @@ class CategoriesController < ApplicationController
   end
 
   private
+
   def category_params
     params.require(:category).permit(:title, :body, :user_id)
   end
@@ -52,14 +54,10 @@ class CategoriesController < ApplicationController
   end
 
   def set_id
-    @category = Category.find(params[:id])
+    @category = current_user.categories.find(params[:id])
   end
 
   def record_not_found
     redirect_to categories_path, alert: "Record does not exist"
-  end
-
-  def invalid_foreign_key
-    redirect_to categories_path, alert: "Unable to delete category. Still referenced from tasks"
   end
 end

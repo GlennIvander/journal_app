@@ -1,5 +1,9 @@
 <table class="table table-striped table-bordered table-hover">
   <br><br>
+  <% if current_user %>
+  <h2> Hi, current user: <%= current_user.email %> </h2>
+  <% end %>
+  <br>
   <thead class="table-dark text-center">
     <tr>
       <th>Category</th>
@@ -7,10 +11,8 @@
     </tr>
   </thead>
   <tbody>
-    <% @categories.each do |category| %>
+    <% @categories.each do |category| %>    
       <% if category.user == current_user %>
-      <h2> Hi, current user ID: <%= current_user.id %> </h2>
-        <br> <br>
         <tr>
           <td><%= category.title %></td>
           <td class="text-center"><%= link_to "show", category, class:"btn btn-info btn-sm" %></td>
@@ -19,6 +21,7 @@
     <% end %>
   </tbody>  
 </table>
+
 <br>
 <%= link_to "New Category", new_category_path, class: "btn btn-primary" %>
 <br><br>

@@ -39,9 +39,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
       category: {
         title: "New Title",
         body: "New Body",
-        user_id: @user.id
-      }
-    }
+        user_id: @user.id } }
     assert_response :redirect
   end
 
@@ -50,9 +48,14 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
       category: {
         title: "Updated Title",
         body: "Updated Body",
-        user_id: @user.id
-      }
-    }
+        user_id: @user.id } }
+    assert_response :redirect
+  end
+
+  test "should destroy category" do
+    assert_difference("Category.count", -1) do
+      delete category_path(@category)
+    end
     assert_response :redirect
   end
 end

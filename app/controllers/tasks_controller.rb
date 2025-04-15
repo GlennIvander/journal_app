@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_id
   before_action :set_action, only: %i[show edit update destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
     @tasks = @category.tasks
@@ -44,10 +45,14 @@ class TasksController < ApplicationController
   end
 
   def set_id
-    @category = Category.find(params[:category_id])
+    @category = current_user.categories.find(params[:category_id])
   end
 
   def set_action
     @task = @category.tasks.find(params[:id])
+  end
+
+  def record_not_found
+    redirect_to root_path, alert: "Record does not exist"
   end
 end

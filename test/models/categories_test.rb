@@ -7,12 +7,12 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not category.save
   end
 
-  test "should belong to a user" do
+  test "belongs_to :user" do
     association = Category.reflect_on_association(:user)
     assert_equal :belongs_to, association.macro
   end
 
-  test "should have many tasks" do
+  test "has_many :tasks" do
     association = Category.reflect_on_association(:tasks)
     assert_equal :has_many, association.macro
   end
