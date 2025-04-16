@@ -6,7 +6,6 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
-    @cats = current_user.categories
   end
 
   def show

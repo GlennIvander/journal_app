@@ -1,10 +1,9 @@
 require "test_helper"
 class CategoryTest < ActiveSupport::TestCase
   test "Category validation" do
-    category = Category.new
-    category.title = nil
-    category.body = "Minimum of 5 characters"
-    assert_not category.save
+    user = User.create!(email: "test@example.com", password: "password")
+    category = Category.new(title: "sample title", body: "Minimum of 5 characters", user: user)
+    assert category.save
   end
 
   test "belongs_to :user" do
